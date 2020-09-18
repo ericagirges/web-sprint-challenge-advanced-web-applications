@@ -102,6 +102,10 @@ test("Rerenders with new props", () => {
 
   rerender(<Router><BubblePage color={mockColorData} /></Router>);
 
-  const displayColors = screen.getAllByTestId(/color/i);
-  expect(displayColors).toHaveLength(11)
+  const { getByText } = render(<BubblePage />);
+  const colors = getByText(/colors/i);
+  expect(colors).toBeInTheDocument();
+
+  const bubbles = getByText(/bubbles/i);
+   expect(bubbles).toBeInTheDocument();
 })
