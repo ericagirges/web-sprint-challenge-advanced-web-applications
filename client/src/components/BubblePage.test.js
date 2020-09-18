@@ -97,14 +97,17 @@ test("Fetches data and renders the bubbles", async () => {
   })
 });
 
-test("Rerenders with new props", () => {
+test("Rerenders with new props", async () => {
   const { rerender } = render(<Router><BubblePage colorData={[]} /></Router>);
 
   rerender(<Router><BubblePage color={mockColorData} /></Router>);
 
   const { getByText } = render(<BubblePage />);
-  const colors = getByText(/colors/i);
-  expect(colors).toBeInTheDocument();
+  await waitFor(() => {
+    const colors = getByText(/colors/i);
+    expect(colors).toBeInTheDocument();
+  })
+
 
   const bubbles = getByText(/bubbles/i);
    expect(bubbles).toBeInTheDocument();
